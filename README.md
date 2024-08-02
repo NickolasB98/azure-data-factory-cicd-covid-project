@@ -66,7 +66,9 @@ We used various components of ADF Pipeline activities to ingest the data from bo
 Ingest "population by age" data for all EU Countries into the Data Lake to support the machine learning models with the data to predict an increase in Covid-19 mortality rate.
 
 ### Solution Flow
-![SolutionFlow](https://github.com/hbuddana/Azure_Data_Factory_COVID-19_Reporting/blob/main/Covidreporting_Azure_Screenshots/4.Data%20Ingestion%20from%20Blob/Module_Solution.jpeg)
+
+<img width="1352" alt="Screenshot at Aug 03 00-59-08" src="https://github.com/user-attachments/assets/9cf89ffb-3fba-49b4-b61a-8ebb5eefdfb0">
+
 
 ### Steps:
 1. Create a Linked Service To Azure Blob Storage
@@ -81,7 +83,8 @@ Ingest "population by age" data for all EU Countries into the Data Lake to suppo
 
 
 ### Pipeline Design :
-![Pipeline](https://github.com/hbuddana/Azure_Data_Factory_COVID-19_Reporting/blob/main/Covidreporting_Azure_Screenshots/4.Data%20Ingestion%20from%20Blob/13.delete_after_copy.png)
+
+<img width="1433" alt="Screenshot at Aug 03 01-01-34" src="https://github.com/user-attachments/assets/b81f440c-17f9-4b62-8a62-7b27191beb00">
 
 ### ECDC Data from Web to Destination Data Lake
 
@@ -93,7 +96,9 @@ Ingest "population by age" data for all EU Countries into the Data Lake to suppo
 
 
 ### Solution Flow
-![SOLUTION](https://github.com/hbuddana/Azure_Data_Factory_COVID-19_Reporting/assets/65592890/4f853edd-61b2-4479-be1f-aca81605fbcf)
+
+<img width="1032" alt="Screenshot at Aug 03 01-03-16" src="https://github.com/user-attachments/assets/17018520-fb1f-4430-860d-c3dc4fccd891">
+
 
 Steps:
 1. Create a Linked Service using an HTTP connector
@@ -104,11 +109,17 @@ Steps:
 6. Lookup to get all the parameters from json file, then pass it to ForEach ECDC DATA as shown below
 7. Schedule Trigger
 
-![Screenshot 2023-08-22 112844](https://github.com/hbuddana/Azure_Data_Factory_COVID-19_Reporting/assets/65592890/1db319c4-03ad-4187-b19e-73ab9517a651)
+
+<img width="428" alt="Screenshot at Aug 03 01-04-03" src="https://github.com/user-attachments/assets/8cdcbf02-e8fa-4c95-a46a-cfa4028e349b">
+
+
 
 ### Pipeline Design :
 
-![13 changes_madeto_pl](https://github.com/hbuddana/Azure_Data_Factory_COVID-19_Reporting/assets/65592890/ed161f6b-2e54-45d0-908a-d7ffcf680b27)
+
+<img width="1439" alt="Screenshot at Aug 03 01-05-59" src="https://github.com/user-attachments/assets/f5be0bb7-bba0-4533-b697-6c43c348fbf8">
+
+
 
 # 2. DATA TRANSFORMATION
 
@@ -126,7 +137,10 @@ The Cases and Deaths data together with the Hospital admissions data was transfo
 # Data Flows (1) Cases & Deaths Data:
 
 ### Solution Flow
-![Screenshot 2023-08-22 115115](https://github.com/hbuddana/Azure_Data_Factory_COVID-19_Reporting/assets/65592890/9685b3ab-7db3-4657-b799-2ace7f38a8bc)
+
+<img width="1046" alt="Screenshot at Aug 03 01-06-19" src="https://github.com/user-attachments/assets/097827b0-735f-40ec-9b0b-72f9633f3721">
+
+
 
 ### Steps:
 1. Cases And Deaths Source (Azure Data Lake Storage Gen2 )
@@ -138,13 +152,19 @@ The Cases and Deaths data together with the Hospital admissions data was transfo
 7. Create a Sink dataset (Azure Data Lake Storage Gen2)
 8. Used Schedule Trigger
 
-![6 lookup](https://github.com/hbuddana/Azure_Data_Factory_COVID-19_Reporting/assets/65592890/b83197b6-4fff-4b59-a832-7f6c7745c361)
+
+<img width="1393" alt="Screenshot at Aug 03 01-07-30" src="https://github.com/user-attachments/assets/7201b5c7-88ec-4eda-8b96-4e0bb666142b">
+
+
+
 
 
 # Data Flows (2) Hospital Admissions Data:
 
 ### Solution Flow
-![Screenshot 2023-08-22 115705](https://github.com/hbuddana/Azure_Data_Factory_COVID-19_Reporting/assets/65592890/6936a920-d985-424c-892f-a285f8a16b11)
+
+<img width="1036" alt="Screenshot at Aug 03 01-07-40" src="https://github.com/user-attachments/assets/7bf07682-4206-457a-a118-bd11dab9e9c0">
+
 
 ### Steps:
 1. Hospital Admissions Source (Azure Data Lake Storage Gen2 )
@@ -168,21 +188,27 @@ The Cases and Deaths data together with the Hospital admissions data was transfo
 - Create a sink dataset (Azure Data Lake Storage Gen2)
 - Used Schedule Trigger
 
-![pllll](https://github.com/hbuddana/Azure_Data_Factory_COVID-19_Reporting/assets/65592890/79f249e4-44a5-4480-9417-3a2417e5d44a)
+
+<img width="1372" alt="Screenshot at Aug 03 01-08-56" src="https://github.com/user-attachments/assets/b1483ff0-f9f6-4400-a7b1-8b89aa01a37d">
+
+
 
 # Databricks Activity (3) -- Population File:
 
-![Screenshot 2023-08-22 120411](https://github.com/hbuddana/Azure_Data_Factory_COVID-19_Reporting/assets/65592890/28d97faf-7242-4116-be97-002a8a41422e)
+
+<img width="1030" alt="Screenshot at Aug 03 01-09-11" src="https://github.com/user-attachments/assets/09a53d9f-5df1-453e-b203-1963beef46e3">
+
+
+
 
 # 3. Copy Data to Azure SQL
 1- Copy Cases and Deaths
 2- Copy hospital admissions data
 3- Copy testing data
 
-![4 pl_succ](https://github.com/hbuddana/Azure_Data_Factory_COVID-19_Reporting/assets/65592890/dea9e004-a556-4bc9-929a-d7239d6a9359)
 
+<img width="1267" alt="Screenshot at Aug 03 01-10-24" src="https://github.com/user-attachments/assets/edaf42fe-b88a-47c0-8eef-68f4c852d439">
 
-![7 PL-SUCC](https://github.com/hbuddana/Azure_Data_Factory_COVID-19_Reporting/assets/65592890/75dc0a79-fb9e-4963-97bd-4303677aa775)
 
 # 4. Reporting via Power BI
 
@@ -193,17 +219,19 @@ The Cases and Deaths data together with the Hospital admissions data was transfo
 5. Publish to web
 
 # Covid-19 Trend in the EU/EEA & UK 2020 by Cases, Deaths, Hospital Occupancy, and ICU Occupancy
-![Screenshot 2023-08-22 121510](https://github.com/hbuddana/Azure_Data_Factory_COVID-19_Reporting/assets/65592890/dd18e69a-2db9-4d45-9fa9-a89c9f960af4)
+
+<img width="933" alt="Screenshot at Aug 03 01-18-00" src="https://github.com/user-attachments/assets/e6cb9e1d-a809-43c3-bd6f-9e7dfbbb78e9">
 
 
 # Covid-19 Cases and Death breakdown by population in the UK, France, and Germany
-![Screenshot 2023-08-22 121924](https://github.com/hbuddana/Azure_Data_Factory_COVID-19_Reporting/assets/65592890/cfea642a-8fd5-4c0f-86d6-68cf9bf687cc)
+
+<img width="973" alt="Screenshot at Aug 03 01-18-12" src="https://github.com/user-attachments/assets/4b53b495-3815-4394-8bfe-933ac6835a85">
 
 
 
 # Total Number of covid tests carried out vs Confirmed Cases
-![Screenshot 2023-08-22 122141](https://github.com/hbuddana/Azure_Data_Factory_COVID-19_Reporting/assets/65592890/2b38f5f2-aef5-49a9-a828-5230708decbc)
 
+<img width="991" alt="Screenshot at Aug 03 01-18-26" src="https://github.com/user-attachments/assets/b042a2aa-b8d5-4e10-9fc2-0bad1a817f86">
 
 
 # Used Technologies
@@ -212,8 +240,4 @@ The Cases and Deaths data together with the Hospital admissions data was transfo
 - Azure Storage Account
 - Azure Data Lake Gen2
 - Azure SQL Database
-
-
-
-
 
