@@ -33,6 +33,10 @@
 - Power BI Desktop
 - Power BI Service
 
+### CI/CD Tools:
+- Azure Repos - Git Repositories
+- Azure DevOps
+
 ### Approach
 
 ### Environment Setup
@@ -42,6 +46,8 @@
 - Data Lake Storage Gen2
 - Azure SQL Database
 - Azure Databricks Cluster
+- Azure DevOps Account
+- Azure Git Repository
 
 # Solution Architecture Overview
 
@@ -246,7 +252,7 @@ The Cases and Deaths data together with the Hospital admissions data was transfo
 
 <img width="1284" alt="Screenshot at Aug 03 01-42-05" src="https://github.com/user-attachments/assets/0922f3d5-41f8-480c-9775-391d1a8adb16">
 
-The ADF Pipelines are automatically converted to JSON templates, and from now on are used in JSON format in Azure DevOps.
+The ADF Pipelines are automatically converted to JSON templates, and from now on are used in JSON format inside Azure DevOps.
 
 For the fully automated solution, instead of having to utilize the Publish option in the main branch, we make use of a Build Pipeline.
 
@@ -274,3 +280,17 @@ Also, for the three environments to have access to the corresponding data lakes,
 
 <img width="1439" alt="Screenshot at Aug 03 01-32-22" src="https://github.com/user-attachments/assets/cf6ffa6d-9287-42bc-9db7-84f1c5c73d4c">
 
+
+
+# Conclusion
+This project successfully built a cloud-based ETL pipeline using Azure Data Factory (ADF) to ingest, transform, and load COVID-19 data for analysis. It leveraged ADF Data Flows, Databricks notebooks, and Azure SQL Database to prepare the data for visualization with Power BI.
+
+## Key achievements:
+
+- Automated data acquisition from ECDC and Azure Blob Storage.
+- Implemented data transformations using ADF and Databricks for cleaning, pivoting, joining, and deriving new columns.
+- Loaded transformed data into Azure Data Lake Gen2 for further analysis.
+- Populated an Azure SQL Database with prepared data for reporting with Power BI.
+- Implemented a fully automated CI/CD pipeline using Azure DevOps and Git for continuous delivery and improved development efficiency. This ensures faster deployment of updates and minimizes manual intervention.
+  
+This project demonstrates the capabilities of Azure Data Factory for building scalable and automated data pipelines for public health data analysis. The implemented CI/CD pipeline further streamlines the development and deployment process, ensuring a reliable and efficient data pipeline solution.
