@@ -241,3 +241,36 @@ The Cases and Deaths data together with the Hospital admissions data was transfo
 - Azure Data Lake Gen2
 - Azure SQL Database
 
+
+# This project was built initially in ADF Live Mode, but was later on transformed to provide a CI/CD fully automated solution, using Azure DevOps and Git.
+
+<img width="1284" alt="Screenshot at Aug 03 01-42-05" src="https://github.com/user-attachments/assets/0922f3d5-41f8-480c-9775-391d1a8adb16">
+
+The ADF Pipelines are automatically converted to JSON templates, and from now on are used in JSON format in Azure DevOps.
+
+For the fully automated solution, instead of having to utilize the Publish option in the main branch, we make use of a Build Pipeline.
+
+The build pipeline automates the Publish of the main branch from the Dev environment, forwarding the new changes to the Test and Prod environments.
+
+**After successful deployment in the Test enviroment, an approval is needed to forward the changes to the Production env.**
+
+<img width="1267" alt="Screenshot at Aug 03 01-43-13" src="https://github.com/user-attachments/assets/5271d260-ecc6-4132-83ca-91e000915d0c">
+
+Also, for the three environments to have access to the corresponding data lakes, we utilize the System Assigned Managed Identities.
+
+## The Git Repo utilized
+
+<img width="1406" alt="Screenshot at Aug 03 01-32-45" src="https://github.com/user-attachments/assets/dfc3269f-1cfe-4a2c-accd-ce84bfc7e783">
+
+## The Build Pipeline (adf-ci-option-2-build-pipeline.yml)
+
+<img width="1438" alt="image" src="https://github.com/user-attachments/assets/e1758bed-9e2c-445f-adee-e809c72be358">
+
+## The Release Pipeline
+
+<img width="1428" alt="Screenshot at Aug 03 01-31-53" src="https://github.com/user-attachments/assets/3c060635-caf6-45dc-83eb-f5578b685b30">
+
+### Tasks of Release Pipeline
+
+<img width="1439" alt="Screenshot at Aug 03 01-32-22" src="https://github.com/user-attachments/assets/cf6ffa6d-9287-42bc-9db7-84f1c5c73d4c">
+
