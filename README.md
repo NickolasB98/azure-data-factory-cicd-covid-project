@@ -242,7 +242,7 @@ The Cases and Deaths data together with the Hospital admissions data was transfo
 - Azure SQL Database
 
 
-# This project was built initially in ADF Live Mode, but was later on transformed to provide a CI/CD fully automated solution, using Azure DevOps and Git.
+### This project was built initially in ADF Live Mode, but was later on transformed to provide a CI/CD fully automated solution, using Azure DevOps and Git.
 
 <img width="1284" alt="Screenshot at Aug 03 01-42-05" src="https://github.com/user-attachments/assets/0922f3d5-41f8-480c-9775-391d1a8adb16">
 
