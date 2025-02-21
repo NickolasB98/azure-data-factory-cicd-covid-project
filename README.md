@@ -176,185 +176,40 @@ The architecture involves:
 ---
 
 ## Optional Reading: Pipeline Implementation Details
+This section provides a deeper dive into the **pipelines** and **Databricks** implementation used in this project.
 
-#### Environment Setup
-- Azure Subscription
-- Data Factory
-- Azure Blob Storage Account
-- Data Lake Storage Gen2
-- Azure SQL Database
-- Azure Databricks Cluster
-- Azure DevOps Account
-- Azure Git Repository
+### Pipelines Created in ADF
+1. **pl_ingest_population_data:**
+   - Ingests population data from Azure Blob Storage to Data Lake Gen2.
+   - Uses Copy Activity and Schedule Trigger.
+     
+<img width="826" alt="image" src="https://github.com/user-attachments/assets/8cfd4f18-1115-47ac-8ccc-88c04a72014c" />
 
-#### Data Extraction / Ingestion
-Four different datasets were ingested from both the ECDC website and azure blob storage into Datalake Gen2. They are - 
 
-- Cases and Deaths Data
-- Hospital Admissions Data
-- Population Data
-- Test Conducted Data
+2. **pl_ingest_ecdc_data:**
+   - Ingests ECDC data (cases, deaths, hospital admissions, testing) from the web to Data Lake Gen2.
+   - Uses Lookup, ForEach, and Schedule Trigger.
 
-I used various components of ADF Pipeline activities to ingest the data from both HTTP Data Source and Azure Storage Account to Azure DataLake. Some of those activities are:
+<img width="822" alt="image" src="https://github.com/user-attachments/assets/77f7ba56-12ec-4d03-9cac-504f7b885c2d" />
 
-- Validation Activity
-- Get Metadata Activity
-- Copy Activity
 
-#### Population Data : Load into Storage Account and move it to Destination Data Lake
-Ingest "population by age" data for all EU Countries into the Data Lake to support the machine learning models with the data to predict an increase in Covid-19 mortality rate.
+3. **pl_transform_cases_deaths:**
+   - Transforms cases and deaths data using ADF Data Flows.
+   - Applies filters, pivots, and lookups.
 
-#### Solution Flow
+<img width="824" alt="image" src="https://github.com/user-attachments/assets/ed1be4a3-359d-4229-8d29-13659e2d099b" />
 
-<img width="1352" alt="Screenshot at Aug 03 00-59-08" src="https://github.com/user-attachments/assets/9cf89ffb-3fba-49b4-b61a-8ebb5eefdfb0">
 
+4. **pl_transform_hospital_data:**
+   - Transforms hospital admissions data using ADF Data Flows.
+   - Splits data into weekly and daily paths.
 
-#### Steps:
-1. Create a Linked Service To Azure Blob Storage
-2. Create a Source Data Set
-3. Create a Linked Service To Azure Data Lake storage (GEN2)
-4. Create a Sink Data set
-5. Create a Pipeline:
-- Execute Copy activity when the file becomes available
-- Check metadata counts before loading the data using the IF Condition
-- Finally Load Data into our destination
-6. ScheduleTrigger
+<img width="825" alt="image" src="https://github.com/user-attachments/assets/65735917-6912-4550-9c20-3d5342c16613" />
 
 
-#### Pipeline Design :
+5. **pl_copy_to_sql:**
+   - Copies transformed data into Azure SQL Database.
 
-<img width="1433" alt="Screenshot at Aug 03 01-01-34" src="https://github.com/user-attachments/assets/b81f440c-17f9-4b62-8a62-7b27191beb00">
-
-#### ECDC Data from Web to Destination Data Lake
-
-#### ECDC Data Content - Four files of CSV :
-1. Case & Deaths Data.csv
-2. Hospital Admission Data.csv
-3. testing.csv
-4. country_response.csv
-
-
-#### Solution Flow
-
-<img width="1032" alt="Screenshot at Aug 03 01-03-16" src="https://github.com/user-attachments/assets/17018520-fb1f-4430-860d-c3dc4fccd891">
-
-
-Steps:
-1. Create a Linked Service using an HTTP connector
-2. Create a Source Data Set
-3. Create a Linked Service To Azure Data Lake storage (GEN2)
-4. Create a Sink Data set
-5. Create a Pipeline With Parameters & Variables
-6. Lookup to get all the parameters from json file, then pass it to ForEach ECDC DATA as shown below
-7. Schedule Trigger
-
-
-<img width="428" alt="Screenshot at Aug 03 01-04-03" src="https://github.com/user-attachments/assets/8cdcbf02-e8fa-4c95-a46a-cfa4028e349b">
-
-
-
-#### Pipeline Design :
-
-
-<img width="1439" alt="Screenshot at Aug 03 01-05-59" src="https://github.com/user-attachments/assets/f5be0bb7-bba0-4533-b697-6c43c348fbf8">
-
-
-
-### 2. Data Transformation
-
-The Cases and Deaths data together with the Hospital admissions data was transformed using ADF Data flows. The Data Flows transformation used on both dataset include
-
-- Select transformation
-- Lookup transformation
-- Filter transformation
-- Join transformation
-- Sort transformation
-- Conditional split transformation
-- Derived columns transformation
-- Sink transformation
-
-#### Data Flows (1) Cases & Deaths Data:
-
-##### Solution Flow
-
-<img width="1046" alt="Screenshot at Aug 03 01-06-19" src="https://github.com/user-attachments/assets/097827b0-735f-40ec-9b0b-72f9633f3721">
-
-
-
-##### Steps:
-1. Cases And Deaths Source (Azure Data Lake Storage Gen2 )
-2. Filter Europe-Only Data
-3. Select only the required columns
-4. PivotCounts using indicator Columns(confirmed cases, deaths) and get the sum of daily cases count
-5. Lookup Country to get country_code_2_digit,country_code_3_digit columns
-6. Select Only the required columns for the Sink
-7. Create a Sink dataset (Azure Data Lake Storage Gen2)
-8. Used Schedule Trigger
-
-
-<img width="1393" alt="Screenshot at Aug 03 01-07-30" src="https://github.com/user-attachments/assets/7201b5c7-88ec-4eda-8b96-4e0bb666142b">
-
-
-
-
-
-#### Data Flows (2) Hospital Admissions Data:
-
-##### Solution Flow
-
-<img width="1036" alt="Screenshot at Aug 03 01-07-40" src="https://github.com/user-attachments/assets/7bf07682-4206-457a-a118-bd11dab9e9c0">
-
-
-##### Steps:
-1. Hospital Admissions Source (Azure Data Lake Storage Gen2 )
-2. Select only the required columns
-3. Lookup Country to get country_code_2_digit,country_code_3_digit columns
-4. Select only the required columns
-5. Condition Split Weekly, Daily Split condition
-  - indicator=='Weekly new hospital admissions per 100k' || indicator=='Weekly new ICU admissions per 100k'
-  - indicator== "Daily hospital occupancy" || indicator=="Daily ICU occupancy"
-6. For Weekly Path
-- Join with Date to get ecdc_Year_week, week_start_date, week_End_date
-- Piovt Counts using indicator Columns(confirmed cases, deaths) and get the sum of daily cases count
-- Sort data using reported_year_week ASC and Country DESC
-- Select only required columns for sink
-- Create a sink dataset (Azure Data Lake Storage Gen2)
-- Schedule Trigger
-7. For Daily Path
-- Pivot Counts using indicator Columns(confirmed cases, deaths) and get the sum of daily cases count
-- Sort Data using reported_year_week ASC and Country DESC
-- Select only required columns for sink
-- Create a sink dataset (Azure Data Lake Storage Gen2)
-- Used Schedule Trigger
-
-
-<img width="1372" alt="Screenshot at Aug 03 01-08-56" src="https://github.com/user-attachments/assets/b1483ff0-f9f6-4400-a7b1-8b89aa01a37d">
-
-
-
-#### Databricks Activity (3) -- Population File:
-
-
-<img width="1030" alt="Screenshot at Aug 03 01-09-11" src="https://github.com/user-attachments/assets/09a53d9f-5df1-453e-b203-1963beef46e3">
-
-
-
-
-##### 3. Copy Data to Azure SQL
-1- Copy Cases and Deaths
-2- Copy hospital admissions data
-3- Copy testing data
-
-
-<img width="1267" alt="Screenshot at Aug 03 01-10-24" src="https://github.com/user-attachments/assets/edaf42fe-b88a-47c0-8eef-68f4c852d439">
-
-
-#### 4. Reporting via Power BI
-
-1. Create a Connection from Azure SQL to Power Bi and load the data
-2. Analyze the data to get the total confirmed cases and deaths count
-3. Identify the trends in data based on reporting date
-4. Publish the report to Power BI Server
-5. Publish to web
+<img width="823" alt="image" src="https://github.com/user-attachments/assets/798fe79c-7e3a-49c0-a330-131c2b596f13" />
 
 ---
