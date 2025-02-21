@@ -74,7 +74,9 @@ Also, for the three environments to have access to the corresponding data lakes,
   - The first dashboard prominently displays the aggregate numbers of confirmed cases and deaths.
   - Trend charts in the first dashboard show the growth of cases and deaths over time.
 - **Implication:** These figures demonstrate the significant and escalating impact of the pandemic across the region during 2020.
-- **Visualization:** <img width="826" alt="image" src="https://github.com/user-attachments/assets/5830c1f1-fa7f-49aa-8308-c312d1878574" />
+- **Visualization:**
+
+<img width="826" alt="image" src="https://github.com/user-attachments/assets/5830c1f1-fa7f-49aa-8308-c312d1878574" />
 
 
 ---
@@ -86,7 +88,9 @@ Also, for the three environments to have access to the corresponding data lakes,
 - **Supporting Data:** 
   - The second dashboard's charts directly compare the case and death trends for each country.
 - **Implication:** These differences likely reflect variations in factors such as public health policies, social behavior, population density, and healthcare system capacity.
-- **Visualization:** <img width="824" alt="image" src="https://github.com/user-attachments/assets/49724459-de1a-46c4-9bcc-12b4c481f1f4" />
+- **Visualization:**
+
+<img width="824" alt="image" src="https://github.com/user-attachments/assets/49724459-de1a-46c4-9bcc-12b4c481f1f4" />
 
 
 ---
@@ -99,7 +103,9 @@ Also, for the three environments to have access to the corresponding data lakes,
   - The third dashboard provides data on the total number of tests performed in various countries.
   - The "Tests done Vs Confirmed Cases" chart shows the correlation between the two.
 - **Implication:** Understanding testing capacity is crucial for assessing the true spread of the virus. Analyzing the relationship between tests and cases can provide insights into the effectiveness of testing strategies.
-- **Visualization:** <img width="825" alt="image" src="https://github.com/user-attachments/assets/c820b92a-f435-4cdd-a64a-aa1aaba07660" />
+- **Visualization:**
+
+<img width="825" alt="image" src="https://github.com/user-attachments/assets/c820b92a-f435-4cdd-a64a-aa1aaba07660" />
 
 
 ---
