@@ -177,9 +177,7 @@ The architecture involves:
 
 ## Optional Reading: Pipeline Implementation Details
 
-### Approach
-
-### Environment Setup
+#### Environment Setup
 - Azure Subscription
 - Data Factory
 - Azure Blob Storage Account
@@ -189,7 +187,7 @@ The architecture involves:
 - Azure DevOps Account
 - Azure Git Repository
 
-### DATA EXTRACTION/ INGESTION
+#### Data Extraction / Ingestion
 Four different datasets were ingested from both the ECDC website and azure blob storage into Datalake Gen2. They are - 
 
 - Cases and Deaths Data
@@ -197,21 +195,21 @@ Four different datasets were ingested from both the ECDC website and azure blob 
 - Population Data
 - Test Conducted Data
 
-We used various components of ADF Pipeline activities to ingest the data from both HTTP Data Source and Azure Storage Account to Azure DataLake. Some of those activities are:
+I used various components of ADF Pipeline activities to ingest the data from both HTTP Data Source and Azure Storage Account to Azure DataLake. Some of those activities are:
 
 - Validation Activity
 - Get Metadata Activity
 - Copy Activity
 
-### Population Data : Load into Storage Account and move it to Destination Data Lake
+#### Population Data : Load into Storage Account and move it to Destination Data Lake
 Ingest "population by age" data for all EU Countries into the Data Lake to support the machine learning models with the data to predict an increase in Covid-19 mortality rate.
 
-### Solution Flow
+#### Solution Flow
 
 <img width="1352" alt="Screenshot at Aug 03 00-59-08" src="https://github.com/user-attachments/assets/9cf89ffb-3fba-49b4-b61a-8ebb5eefdfb0">
 
 
-### Steps:
+#### Steps:
 1. Create a Linked Service To Azure Blob Storage
 2. Create a Source Data Set
 3. Create a Linked Service To Azure Data Lake storage (GEN2)
@@ -223,20 +221,20 @@ Ingest "population by age" data for all EU Countries into the Data Lake to suppo
 6. ScheduleTrigger
 
 
-### Pipeline Design :
+#### Pipeline Design :
 
 <img width="1433" alt="Screenshot at Aug 03 01-01-34" src="https://github.com/user-attachments/assets/b81f440c-17f9-4b62-8a62-7b27191beb00">
 
-### ECDC Data from Web to Destination Data Lake
+#### ECDC Data from Web to Destination Data Lake
 
-### ECDC Data Content - Four files of CSV :
+#### ECDC Data Content - Four files of CSV :
 1. Case & Deaths Data.csv
 2. Hospital Admission Data.csv
 3. testing.csv
 4. country_response.csv
 
 
-### Solution Flow
+#### Solution Flow
 
 <img width="1032" alt="Screenshot at Aug 03 01-03-16" src="https://github.com/user-attachments/assets/17018520-fb1f-4430-860d-c3dc4fccd891">
 
@@ -255,14 +253,14 @@ Steps:
 
 
 
-### Pipeline Design :
+#### Pipeline Design :
 
 
 <img width="1439" alt="Screenshot at Aug 03 01-05-59" src="https://github.com/user-attachments/assets/f5be0bb7-bba0-4533-b697-6c43c348fbf8">
 
 
 
-## 2. DATA TRANSFORMATION
+### 2. Data Transformation
 
 The Cases and Deaths data together with the Hospital admissions data was transformed using ADF Data flows. The Data Flows transformation used on both dataset include
 
@@ -275,15 +273,15 @@ The Cases and Deaths data together with the Hospital admissions data was transfo
 - Derived columns transformation
 - Sink transformation
 
-## Data Flows (1) Cases & Deaths Data:
+#### Data Flows (1) Cases & Deaths Data:
 
-### Solution Flow
+##### Solution Flow
 
 <img width="1046" alt="Screenshot at Aug 03 01-06-19" src="https://github.com/user-attachments/assets/097827b0-735f-40ec-9b0b-72f9633f3721">
 
 
 
-### Steps:
+##### Steps:
 1. Cases And Deaths Source (Azure Data Lake Storage Gen2 )
 2. Filter Europe-Only Data
 3. Select only the required columns
@@ -300,14 +298,14 @@ The Cases and Deaths data together with the Hospital admissions data was transfo
 
 
 
-## Data Flows (2) Hospital Admissions Data:
+#### Data Flows (2) Hospital Admissions Data:
 
-### Solution Flow
+##### Solution Flow
 
 <img width="1036" alt="Screenshot at Aug 03 01-07-40" src="https://github.com/user-attachments/assets/7bf07682-4206-457a-a118-bd11dab9e9c0">
 
 
-### Steps:
+##### Steps:
 1. Hospital Admissions Source (Azure Data Lake Storage Gen2 )
 2. Select only the required columns
 3. Lookup Country to get country_code_2_digit,country_code_3_digit columns
@@ -334,7 +332,7 @@ The Cases and Deaths data together with the Hospital admissions data was transfo
 
 
 
-## Databricks Activity (3) -- Population File:
+#### Databricks Activity (3) -- Population File:
 
 
 <img width="1030" alt="Screenshot at Aug 03 01-09-11" src="https://github.com/user-attachments/assets/09a53d9f-5df1-453e-b203-1963beef46e3">
@@ -342,7 +340,7 @@ The Cases and Deaths data together with the Hospital admissions data was transfo
 
 
 
-## 3. Copy Data to Azure SQL
+##### 3. Copy Data to Azure SQL
 1- Copy Cases and Deaths
 2- Copy hospital admissions data
 3- Copy testing data
@@ -351,7 +349,7 @@ The Cases and Deaths data together with the Hospital admissions data was transfo
 <img width="1267" alt="Screenshot at Aug 03 01-10-24" src="https://github.com/user-attachments/assets/edaf42fe-b88a-47c0-8eef-68f4c852d439">
 
 
-## 4. Reporting via Power BI
+#### 4. Reporting via Power BI
 
 1. Create a Connection from Azure SQL to Power Bi and load the data
 2. Analyze the data to get the total confirmed cases and deaths count
