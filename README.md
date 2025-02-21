@@ -37,31 +37,28 @@ This project was built initially in ADF Live Mode, but was later on transformed 
 
 <img width="821" alt="image" src="https://github.com/user-attachments/assets/4aa0f470-5443-41cb-aaf9-3916c5b8434a" />
 
-The ADF Pipelines are automatically converted to JSON templates, and from now on are used in JSON format inside Azure DevOps.
-
-For the fully automated solution, instead of having to utilize the Publish option in the main branch, we make use of a Build Pipeline.
-
-The build pipeline automates the Publish of the main branch from the Dev environment, forwarding the new changes to the Test and Prod environments.
-
-After successful deployment in the Test enviroment, an approval is needed to forward the changes to the Production env.
+- The ADF Pipelines are automatically converted to JSON templates, and from now on are used in JSON format inside Azure DevOps.
+- For the fully automated solution, instead of having to utilize the Publish option in the main branch, we make use of a Build Pipeline.
+- The build pipeline automates the Publish of the main branch from the Dev environment, forwarding the new changes to the Test and Prod environments.
+- After successful deployment in the Test enviroment, an approval is needed to forward the changes to the Production env.
 
 <img width="829" alt="image" src="https://github.com/user-attachments/assets/3dc6ebb7-8c7f-4f8a-9f17-40df451032db" />
 
 Also, for the three environments to have access to the corresponding data lakes, we utilize the System Assigned Managed Identities.
 
-The Git Repo utilized
+**The Git Repo utilized**
 
 <img width="826" alt="image" src="https://github.com/user-attachments/assets/c0158ff1-8f51-4233-98a8-7a7db90ad449" />
 
-The Build Pipeline (adf-ci-option-2-build-pipeline.yml)
+**The Build Pipeline (adf-ci-option-2-build-pipeline.yml)**
 
 <img width="824" alt="image" src="https://github.com/user-attachments/assets/c5e35fcc-fa8c-47ee-8b48-de88bd82f3c6" />
 
-The Release Pipeline
+**The Release Pipeline**
 
 <img width="825" alt="image" src="https://github.com/user-attachments/assets/1483f214-8430-4d2f-9845-a85a26f6df1a" />
 
-Tasks of Release Pipeline
+**Tasks of Release Pipeline**
 
 <img width="824" alt="image" src="https://github.com/user-attachments/assets/32d729ea-437f-4790-a6e4-e9a5194aa73b" />
 
